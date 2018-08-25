@@ -6,6 +6,7 @@
         game.load.tilemap('keeper', 'assets/Endless_keeper.json', null, Phaser.Tilemap.TILED_JSON);
         game.load.image('tiles', 'assets/warTileset_32x32.png');
         game.load.image('player', 'assets/Keeper32.png');
+        game.load.image('player_left', 'assets/Keeper32_left.png');
         game.load.image('healthbg','assets/healthbg.jpg');
 
     }
@@ -66,7 +67,7 @@
 
     
     function update() {
-
+        var bool = false;
         game.physics.arcade.collide(p, layer);
 
         p.body.velocity.x = 0;
@@ -91,14 +92,26 @@
         if (cursors.left.isDown)
         {
             p.body.velocity.x = -90;
+            changeSide(true);
+
             // p.scale.setTo(-1,1);
         }
         else if (cursors.right.isDown)
         {
             p.body.velocity.x = 90;
+            changeSide(false);
             // p.scale.setTo(1,1);
 
         }
 
+    }
+
+    function changeSide(bool){
+        if(bool){
+            p.loadTexture('player_left', 0);
+        }
+        else{
+            p.loadTexture('player', 0);
+        }
     }
 
