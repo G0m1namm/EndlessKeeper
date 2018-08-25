@@ -6,6 +6,7 @@
         game.load.tilemap('keeper', 'assets/Endless_keeper.json', null, Phaser.Tilemap.TILED_JSON);
         game.load.image('tiles', 'assets/warTileset_32x32.png');
         game.load.image('player', 'assets/Keeper32.png');
+        game.load.image('botonAtras','assets/Botones/Boton_atras.png', 171, 37);
 
     }
 
@@ -13,6 +14,7 @@
     var layer;
     var p;
     var cursors;
+    var btnAtras;
 
     function create() {
 
@@ -28,6 +30,10 @@
     map.setCollision(15);
     map.setCollision(9);
     map.setTileIndexCallback(9, hitCoin, this);
+
+    btnAtras = game.add.button(32, 300, 'botonAtras');
+    btnAtras.fixedToCamera=true;
+    btnAtras.cameraOffset.setTo(30, 20);
     
     layer = map.createLayer('World1');
 
@@ -51,7 +57,11 @@
     
     function hitCoin(sprite, tile) {
         p.kill();
+        this.game.state.restart();
         return false;
+    }
+    function actionOnClick(){
+        console.log("Atras");
     }
 
     function update() {
