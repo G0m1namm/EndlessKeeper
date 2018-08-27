@@ -6,6 +6,7 @@
         game.load.tilemap('keeper', 'assets/Endless_keeper.json', null, Phaser.Tilemap.TILED_JSON);
         game.load.image('tiles', 'assets/warTileset_32x32.png');
         game.load.image('player', 'assets/Keeper32.png');
+        game.load.image('btnAtras', 'assets/botonAtras.png');
         game.load.spritesheet('gamepad', 'assets/joystick/gamepad_spritesheet.png',100,100);
     }
 
@@ -38,6 +39,10 @@
     layer.resizeWorld();
 
     p = game.add.sprite(32, 200, 'player');
+    // Boton atras
+    // var btn = game.add.button(10, 10, 'btnAtras', hitCoin, 2,1,0);
+    // btn.anchor.setTo(0,0);
+    // btn.fixedToCamera = true;
     game.physics.enable(p);
 
     game.physics.arcade.gravity.y = 350;
@@ -47,6 +52,10 @@
     p.body.collideWorldBounds = true;
     game.camera.follow(p);
     cursors = game.input.keyboard.createCursorKeys();
+
+    // zoom camera
+    // game.camera.scale.x = 1.2;
+    // game.camera.scale.y = 1.2;
 
     // Add the VirtualGamepad plugin to the game
     this.gamepad = this.game.plugins.add(Phaser.Plugin.VirtualGamepad);
@@ -68,7 +77,7 @@
         game.physics.arcade.collide(p, layer);
         p.body.velocity.x = 0;
 
-        if (this.button.isDown)
+        if (cursors.up.isDown)
         {
             if (p.body.onFloor())
             {
